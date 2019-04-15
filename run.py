@@ -126,7 +126,7 @@ class Version:
     """
     Class to compare Suricata versions.
     """
-    def is_equal(a, b):
+    def is_equal(self, a, b):
         """Check if version a and version b are equal in a semantic way.
 
         For example:
@@ -147,7 +147,7 @@ class Version:
 
         return True
 
-    def is_gte(v1, v2):
+    def is_gte(self, v1, v2):
         """Return True if v1 is great than or equal to v2."""
         if v1.major < v2.major:
             return False
@@ -231,7 +231,8 @@ def find_value(name, obj):
 
 def is_version_compatible(version, suri_version, expr):
     config_version = parse_suricata_version(version)
-    func = getattr(Version, "is_{}".format(expr))
+    version_obj = Version()
+    func = getattr(version_obj, "is_{}".format(expr))
     if not func(suri_version, config_version):
         return False
     return True
